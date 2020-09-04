@@ -1,0 +1,92 @@
+Instalar el transporte de instalacion https para ubuntu
+$ sudo apt-get install zip apt-transport-https -y
+
+CLI AWS
+https://docs.aws.amazon.com/es_es/cli/latest/userguide/install-cliv2-linux.html
+$ curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+$ unzip awscliv2.zip
+$ sudo ./aws/install    -> Instalar la linea de comando
+$ aws --version         
+$ rm -rf awscliv2.zip   -> Eliminar el archivo .zip
+$ rm -rf aws/           -> Eliminar la carpeta de aws 
+
+CLI AZURE
+https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-apt?view=azure-cli-latest
+$ curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+$ az --version
+
+CLI GOOGLE 
+https://cloud.google.com/sdk/docs/quickstart-debian-ubuntu
+# Add the Cloud SDK distribution URI as a package source
+$ echo "deb http://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+
+# Import the Google Cloud Platform public key
+$ curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+
+# Update the package list and install the Cloud SDK
+$ sudo apt-get update && sudo apt-get install google-cloud-sdk
+$ gcloud --version
+
+KUBECTL CLI
+https://kubernetes.io/es/docs/tasks/tools/install-kubectl/
+$ curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+$ echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
+$ sudo apt-get update
+$ sudo apt-get install -y kubectl
+$ kubectl version
+
+INSTALAR DOCKER  O REINSTALARLO
+LIMPIAR LA MAQUINA SI SE TIENE ACTUALIZADO
+$ sudo apt-get remove docker docker-engine docker.io containerd runc   
+$ sudo apt-get update
+
+$ sudo apt-get install \
+> apt-transport-https \
+> ca-certificates \
+> curl \
+> gnupg-agent \
+> software-properties-common
+
+$ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+$ sudo apt-key fingerprint 0EBFCD88
+$ sudo add-apt-repository \
+> "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+> $(lsb_release -cs) \
+> stable"
+$ sudo apt-get update
+$ sudo apt-get install docker-ce docker-ce-cli containerd.io
+$ sudo docker images
+$ sudo usermod -aG docker $USER
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

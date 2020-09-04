@@ -1,0 +1,76 @@
+HOLA MUNDO DOCKER
+> Creamos una imagen del Docker HUB
+$ sudo docker pull hello-world
+> Listar las imagenes
+$ sudo docker images
+> Creamos el contenedor
+$ sudo docker run hello-world
+https://www.programadornovato.com/category/curso-docker/
+INSTALAR UBUNTU
+Listar las versiones de Ubuntu
+tag -> versiones  search      -> listar o buscar imagenes
+$ sudo docker search ubuntu
+$ sudo docker pull ubuntu     -> descargamos la imagen
+$ sudo docker images          -> listamos las imagenes
+$ sudo docker run -it ubuntu  -> load container (-InteractivoTerminal)
+$ sudo docker ps -a           -> ver el estado de los contenedores
+$ sudo docker start ID        -> correr el contenedor con la primera   
+                                 letra del ID  
+$ sudo docker attach ID       -> entrar al contenedoro con la
+                                 primera letra del ID  
+$ sudo docker rmi images 3ee81f9b1670  -> Eliminar una imagen usando
+                                          el ID
+DESCARGAR UNA IMAGEN E INICIAR UN CONTENEDOR
+$ sudo docker images                 -> listar las imagenes
+$ sudo docker pull hello-world       -> descargamos las img del docker HUB
+$ sudo docker run -it hello-world    -> convertimos a un contenedor
+$ sudo docker star ID                -> iniciamos un contenedor ya creado
+$ sudo docker attach ID              -> entramos al contenedor
+$ sudo docker stop ID                -> detener los contenedores que se ejecutan
+                                        por id
+
+ELIMINAR CONTENEDORES E IMAGENES 
+$ sudo docker ps              -> listar los contenedores activos
+$ sudo docker ps -a           -> listar todos los contenedores
+$ sudo docker stop IDS        -> detener los contenedores que se ejecutan
+                                 por id
+$ sudo docker rm ID           -> eliminar los contendores por ID
+$ sudo docker rmi images ID   -> eliminamos las imagenes.
+
+CLONAR CONTENEDORES
+$ sudo docker commit -m "Cambios dentro de la imagen" -a "autor-eugenio" 438a832dbc7b eucm2g/ubuntu-mysql
+
+> “Cambios dentro de la imagen” Nombre del cambio.
+> “autor-eugenio” Nombre del autor.
+> 438a832dbc7b Id del contenedor a guardar y clonar en la imagen.
+> eucm2g Nombre de usuario (de http://hub.docker.com).
+> ubuntu-mysql Nombre de la imagen.
+
+$ sudo docker commit -m "Ubuntu con Mysql" -a "rodnal" acdb78029404 rodnalcode/ubuntu-mysql
+$ sudo docker run -it rodnalcode/ubuntu-mysql   -> correr el nuevo contenedor
+-> service mysql start
+-> mysql
+
+SUBIR IMAGENES A DOCKER HUB
+$ sudo docker login -u rodnalcode   -> logearse con una cuenta en la terminal
+$ sudo docker push rodnalcode/ubuntu-mysql
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
