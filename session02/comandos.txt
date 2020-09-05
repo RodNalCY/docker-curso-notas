@@ -1,0 +1,122 @@
+VIDEO 3
+> Aprender a crear una imagen
+$ sudo su
+$ sudo docker pull <name de la imagen>:<tag>
+$ sudo docker pull mysql       > sirve para descargar una imagen de mysql desde el dockerhub
+-------------------------------------------------------------------------------------------
+> NOTE: vemos algunas estructuras de docker 
+rodnalcy@rodnalcy:~$ cd /var/lib/docker
+rodnalcy@rodnalcy:/var/lib/docker$ ls
+ls: no se puede abrir el directorio '.': Permiso denegado
+rodnalcy@rodnalcy:/var/lib/docker$ sudo ls
+builder  buildkit  containers  image  network  overlay2  plugins  runtimes  swarm  tmp	trust  volumes
+rodnalcy@rodnalcy:/var/lib/docker$ sudo su
+root@rodnalcy:/var/lib/docker# cd image/
+root@rodnalcy:/var/lib/docker/image# ls
+overlay2
+root@rodnalcy:/var/lib/docker/image# cd overlay2
+root@rodnalcy:/var/lib/docker/image/overlay2# ls
+distribution  imagedb  layerdb  repositories.json
+-------------------------------------------------------------------------------------------
+> TAG sirven para definir las versiones de una imagen del docker hub doc: https://hub.docker.com/_/mysql?tab=tags
+
+$ docker pull --all-tags mysql               > descargar todas las versiones de Mysql desde el dockerhub
+$ docker images                              > visualizar las imagenes descargas desde el dockerhub
+$ docker images <nombre de la imagen>:<tag>  > filtra imagenes especificos
+$ docker images --digests                    > permite visualiza la imagen con un HASH 'digest'
+$ docker pull mysql@sha256:<hash>            > permite descargar la imagen con un HASH
+
+$ docker run <nombre de la imagen>           > ejecutar una imagen y si no la tienes la descarga
+$ docker run mongo
+$ docker run -d mongo                        > ejecutar uno o multiples contenedores de mongo por detras
+$ docker run -d --name rodnal mongo          > ejecutar un contenedor y asignarle un nombre
+$ docker ps                                  > visualizar los contenedores en ejecucion
+$ docker run --name xenial -it debian        > ejucutar un contenedor, asignarle nombre y abrir su terminl 
+$ docker ps | grep mongo                     > visualizar los contenedores en ejecucion y especificos
+$ docker ps -a                               > visualizar todos los contenedores 
+$ docker ps --filter "name=rodnal"           > filtrar los contenedores de acuerdo al nombre
+
+---------------------------------------------------------------------------------------------
+Administrar los recurso para nuestros contenedores
+$ docker run -d --cpus=1 mongo 
+$ docker run -d --memory="200m" mongo
+---------------------------------------------------------------------------------------------
+> Crear una imagen desde un docker File
+$ vim Dockerfile                            > creamos el file
+~ FROM debian:jessie
+~ RUN apt-get update
+~ RUN apt-get install -y git
+~ RUN apt-get install -y vim
+~
+:wq!   -> salir
+$ docker build -t repositorionamedockerhub/imagen:tag .Dockerfile  > ejucutamos el file 
+$ docker build -t rodnalcode/mydebian:1.0.0 .                      > los contenedores son efimeros
+                                                                     cuando terminamos la ejecucion
+                                                                     se borrara los archivos      
+$ rm -r <name archio o carpeta>    > eliminar archivos 
+$ vim Dockerfile  
+~ FROM debian:jessie
+~ RUN apt-get update && apt-get install -y \
+    git \
+    vim
+
+$ vim Dockerfile
+
+FROM debian:jessie
+RUN apt-get update && apt-get install -y \
+    git \
+    vim
+CMD ["echo","Hola RodNAlCode"]
+
+$ docker build -t rodnalcode/mydebian:1.0.0 .
+$ docker run rodnalcode/mydebian:1.0.0
+
+$ vim foo
+Hola Rodnal Code son la 10:39 en Lima
+$ vim Dockerfile
+    git \
+    vim
+COPY foo /tmp/foo
+CMD ["cat","/tmp/foo"]
+$ docker run rodnalcode/mydebian:1.0.2
+$ docker run -ti rodnalcode/mydebian:1.0.2 bash
+
+$ vim Dockerfile
+$ docker build -t rodnalcode/mybusibox:1.0.0 .
+$ docker run -ti busybox sh
+$ docker run -ti rodnalcode/mybusibox:1.0.0 sh
+
+COMANDOS BASICOS PARA DOCKER
+$ docker --version
+$ docker info
+$ docker --help
+$ docker search redis   -> buscar las imagenes desde docker hub
+$ docker history mysql  -> historial de una imagen
+$ docker inspect mysql  -> brinda la metadata de la imagen en formato JSON
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
