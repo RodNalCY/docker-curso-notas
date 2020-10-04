@@ -93,10 +93,72 @@ $ docker --help
 $ docker search redis   -> buscar las imagenes desde docker hub
 $ docker history mysql  -> historial de una imagen
 $ docker inspect mysql  -> brinda la metadata de la imagen en formato JSON
- 
+------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------
+VIDEO 4
+VOLUMENES 
+$ docker images 
+$ docker volume ls                 -> listar volumenes
+$ docker volume create volume01    -> crear volumenes
+$ docker volume inspect volume01   -> inspeccionar la metadata en JSON de un volumen
+$ docker volume rm volume01        -> Eliminar volumenes
 
+$ docker images                    -> Listar imagenes
+$ docker image rm -f 949db83b3134  -> Eliminar imagenes por ID
 
+$ docker ps -a                        -> listar contenedores
+$ docker container rm -f 53ff87b5415f -> eliminar un contenedor por ID
+$ docker rm -f 53ff87b5415f           -> eliminar un contenedor por ID
 
+$ docker volume create volume02 
+$ docker run -d --name site02 -v volume02:/app nginx:latest  -> crear un contenedor desde el volumen
+$ docker container inspect site22      -> inspeccionar el contenedor 
+
+$ cd /var/lib/docker/volumes/volume02/_data    -> ir a la ruta del volumen 
+$ ls -la                                       -> listamos 
+$ docker exec -it site02 bash                  -> ejecutar el volumen y abrin el terminal
+-------------------------------------------------------      
+> editar un archivo    
+root@dc0c3ba4ef0a:/app# pwd
+/app
+root@dc0c3ba4ef0a:/app# touch a
+root@dc0c3ba4ef0a:/app# echo "Hola Rodnal" > a
+root@dc0c3ba4ef0a:/app# cat a
+Hola Rodnal
+-------------------------------------------------------
+> Comandos para iniciar o finalizar contenedores
+$ docker container start nginx-test-01
+$ docker container stop nginx-test-01
+$ docker ps
+-------------------------------------------------------
+$ docker run -d --name=nginxv2 -v nginx-02:/usr/share/nginx/html:ro nginx:latest -> crear un contenedor de un
+                                                                                    volumen de solo lectura
+> REDES
+$ docker run -d --name=site-01 -p 8080:80 nginx    > crear un contenedor y redireccionar al puerto 8080
+$ curl http://localhost:8080                       > abrir el archivo
+> Editamos el html en los contenedores
+$ docker exec -ti site-01 bash
+$ echo site01-rodnal > /usr/share/nginx/html/index.html
+$ cat /usr/share/nginx/html/index.html
+$ docker container inspect site-01                 > visualizar los puertos o la metadata 
+                                                     de un contenedor
+Crear una red 
+$ docker network ls
+$ docker network inspect bridge
+$ docker network create mired
+$ docker network rm mired
+
+ELIMINAR TODOS LOS CONTENEDORES
+$ docker ps -a -q
+$ docker rm -f $(docker ps -a -q)
+
+ELIMINAR TODAS LAS IMAGENES
+$ docker images -q -a
+$ docker rmi -f $(docker images -q -a)
+--------------------------------------------------------------------------------------
+https://hub.docker.com/_/mysql
+
+$ docker run -d --name mysql -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=database -p 3309:3306 mysql
 
 
 
