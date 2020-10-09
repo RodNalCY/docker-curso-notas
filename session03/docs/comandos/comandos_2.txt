@@ -1,0 +1,57 @@
+ls
+cd ..
+ls
+cd javapp/
+ls
+cat pom.xml 
+ls src/
+ls
+vim Dockerfile
+docker build -t javapp:v1 .
+docker images
+vim Dockerfile 
+mvn
+vim Dockerfile 
+vim pom.xml 
+vim Dockerfile 
+docker build -t javapp:v2 .
+vim Dockerfile 
+ls
+touch application.jar
+ls
+vim Dockerfile 
+docker run -d --name app
+docker images
+docker run -d --name app javapp:v2
+docker ps
+docker log 1b0
+docker logs 1b0
+vim src/main/resources/application.properties 
+docker ps
+docker ps -a
+docker rm -f 1b0 afd 5fd
+docker ps -s
+docker run -d --name mysql-database -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=database mysql
+docker ps
+docker inspect mysql-database
+docker ps
+docker images
+ls
+cd src/main/resources/
+vim application.properties 
+cd ..
+docker run -d --name app -e DATABASE_HOST=172.17.0.2 -e DATABASE_PORT=3306 -e DATABASE_NAME=database -e DATABASE_USERNAME=root -e DATABASE_PASSWORD=password -p 8091:8090 javapp:v2
+docker ps
+docker logs b5d
+ls
+curl --location --request GET 'http://localhost:8091'
+curl --location --request GET 'http://localhost:8091/list'
+curl --location --request POST 'http://localhost:8091/create?name=banana'
+curl --location --request POST 'http://localhost:8091/create?name=apple'
+curl --location --request POST 'http://localhost:8091/create?name=peach'
+curl --location --request POST 'http://localhost:8091/create?name=pear'
+curl --location --request GET 'http://localhost:8091/list'
+ls
+cd javapp/
+vim Dockerfile 
+vim src/main/resources/application.properties 

@@ -1,0 +1,101 @@
+VIDEO 6
+Registro y Orquentacion de Contenedores -DOCKER HUB
+$ vim app.js
+-------------------------------------------------------------------------
+const http = require('http');
+const os = require('os');
+
+console.log('App server is starting ...');
+
+var handler = function(request, response){
+        console.log("Response from : "+request.connection.remoteAddress);
+	response.writeHead(200);
+	response.end("Hi from " +os.hostname()+"\n");
+}
+
+var www = http.createServer(handler);
+www.listen(8080);
+-------------------------------------------------------------------------
+$ vim Dockerfile
+-------------------------------------------------------------------------
+FROM node:12-alpine3.10
+ADD app.js /app.js
+ENTRYPOINT ["node", "app.js"]
+-------------------------------------------------------------------------
+$ docker build -t apple .          -> podemos nombrarlo cualquier nombre para ejecutar el Dockerfile
+$ docker images
+$ docker run --name apple-01 -p 8081:8080 -d apple
+
+> Como subir tus imagenes al DockerHub
+$ docker images
+$ docker tag apple rodnalcode/apple   -> tallar la imagen
+$ docker images
+rodnalcode/apple    latest              53e97a8467f4        19 minutes ago      89MB  >>>>>
+$ docker login
+pass: 7mS!+93vEe)f7H.
+$ docker push rodnalcode/apple
+$ docker tag apple:v2 rodnalcode/apple:v2
+$ docker push rodnalcode/apple:v2
+$ docker logout
+-------------------------------------------------------------------------
+VIDEO 7 ARQUITECTURA DE KUBERNETES Y CUSTERS
+> EJECUTAR EL APP JAVA
+$ vim Dockerfile
+
+# PASO 01 COMPILAR
+FROM maven:3.6.3-jdk-11-slim AS builder
+WORKDIR /app
+COPY pom.xml .
+COPY src ./src
+RUN mvn clean package -Dmaven.test.skip=true
+#  al terminar /app/application*.jar
+RUN ls /app
+# PASO 02 CREAR LA IMAGEN
+FROM openjdk:11.0.6-jdk
+LABEL maintainer="rodnal@mitocode.com"
+WORKDIR /workspace
+RUN ls /workspace
+COPY --from=builder /app/target/application*.jar app.jar
+ENTRYPOINT exec java -jar /workspace/app.jar
+
+$ docker build -t javapp:v2 .
+$ docker run -d --name app javapp:v2
+$ docker logs 23dd3
+$ docker run -d --name mysql-database -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=database mysql 
+$ docker ps
+$ docker inspect mysql-database -> 172.17.0.2
+$ docker run -d --name app \
+  -e DATABASE_HOST=172.17.0.2 \
+  -e DATABESE_PORT=3306 \ 
+  -e DATABASE_NAME=database \ 
+  -e DATABASE_USERNAME=root \
+  -e DATABASE_PASSWORD=password \
+  -p 8091:8090 javapp:v2
+$ docker ps
+$ docker logs 8eca
+
+$ curl --location --request GET 'http://localhost:8091'
+$ curl --location --request POST 'http://localhost:8091/create?name=apple'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

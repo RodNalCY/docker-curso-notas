@@ -1,0 +1,12 @@
+# config server
+https://cloud.spring.io/spring-cloud-config/reference/html/
+
+# vault
+https://hub.docker.com/_/vault
+https://www.vaultproject.io/
+https://spring.io/guides/gs/vault-config/
+
+# cloud k8s
+https://docs.aws.amazon.com/quickstart/latest/amazon-eks-architecture/architecture.html
+https://docs.microsoft.com/en-us/azure/aks/concepts-clusters-workloads
+https://cloud.google.com/kubernetes-engine/docs/concepts/cluster-architecture
